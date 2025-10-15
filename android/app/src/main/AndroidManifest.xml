@@ -2,6 +2,8 @@
 
     <!-- Permissão necessária para carregar anúncios -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Permissão recomendada para o SDK de anúncios do Google -->
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
 
     <application
         android:label="android_info"
@@ -36,7 +38,7 @@
             android:value="2" />
         <!-- TODO: Substitua pelo seu próprio ID de aplicativo do AdMob -->
         <meta-data
-            android:name="com.google.android.gms.permission.AD_ID"
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-4241608895500197~1532887793" />
     </application>
     <!-- Required to query activities that can process text, see:
