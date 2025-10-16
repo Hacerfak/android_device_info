@@ -54,8 +54,8 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
   final Map<String, bool> _adLoadState = {};
 
   final String _adUnitId = Platform.isAndroid
-      ? 'ca-app-pub-3940256099942544/6300978111'
-      : 'ca-app-pub-3940256099942544/2934735716';
+      ? 'ca-app-pub-4241608895500197/3480394281'
+      : 'ca-app-pub-4241608895500197/8905424431';
 
   late AppLocalizations _l10n;
 
