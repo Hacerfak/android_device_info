@@ -1,4 +1,5 @@
 {
+    "@@locale": "pt",
     "appTitle": "Informações do Dispositivo",
     "@appTitle": {
         "description": "O título principal do aplicativo."
