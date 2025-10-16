@@ -49,12 +49,13 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
   final List<StreamSubscription<dynamic>> _streamSubscriptions =
       <StreamSubscription<dynamic>>[];
 
-  BannerAd? _bannerAd;
-  bool _isAdLoaded = false;
+  // Mapa para guardar os banners de cada categoria
+  final Map<String, BannerAd?> _bannerAds = {};
+  final Map<String, bool> _adLoadState = {};
 
   final String _adUnitId = Platform.isAndroid
-      ? 'ca-app-pub-4241608895500197/3480394281'
-      : 'ca-app-pub-4241608895500197/8905424431';
+      ? 'ca-app-pub-3940256099942544/6300978111'
+      : 'ca-app-pub-3940256099942544/2934735716';
 
   late AppLocalizations _l10n;
 
@@ -62,11 +63,10 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _l10n = AppLocalizations.of(context)!;
-    // Carrega as informações apenas uma vez
+
     if (_deviceData.isEmpty) {
       _initDeviceInfo();
       _initSensors();
-      _loadBannerAd();
       WidgetsBinding.instance.addPostFrameCallback((_) => _initDisplayInfo());
     }
   }
@@ -97,8 +97,11 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
             _l10n.userAccelerometer: _l10n.waitingForData,
             _l10n.gyroscope: _l10n.waitingForData,
             _l10n.magnetometer: _l10n.waitingForData,
+            _l10n.barometer: _l10n.waitingForData,
           };
         }
+        // Após os dados serem carregados, prepara os banners para cada categoria
+        _deviceData.keys.forEach(_loadBannerAdForCategory);
       });
     }
   }
@@ -125,6 +128,8 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
 
     setState(() {
       _deviceData.addAll(displayData);
+      // Prepara o banner para a nova categoria de Tela
+      _loadBannerAdForCategory(_l10n.displayInfo);
     });
   }
 
@@ -196,17 +201,54 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
         }
       }),
     );
+    _streamSubscriptions.add(
+      barometerEventStream().listen((BarometerEvent event) {
+        if (mounted) {
+          setState(() {
+            _deviceData[_l10n.sensorsRealTime]?[_l10n.barometer] = event
+                .pressure
+                .toStringAsFixed(2);
+          });
+        }
+      }),
+    );
   }
 
-  void _loadBannerAd() {
-    _bannerAd = BannerAd(
+  void _loadBannerAdForCategory(String category) async {
+    // Evita carregar o mesmo anúncio múltiplas vezes
+    if (_bannerAds.containsKey(category) || (_adLoadState[category] ?? false))
+      return;
+
+    if (mounted) setState(() => _adLoadState[category] = true);
+
+    final screenWidth = MediaQuery.of(context).size.width;
+    final AnchoredAdaptiveBannerAdSize? adSize =
+        await AdSize.getAnchoredAdaptiveBannerAdSize(
+          MediaQuery.of(context).orientation,
+          screenWidth.truncate(),
+        );
+
+    if (adSize == null) {
+      if (mounted) setState(() => _adLoadState[category] = false);
+      return;
+    }
+
+    final banner = BannerAd(
       adUnitId: _adUnitId,
       request: const AdRequest(),
-      size: AdSize.banner,
+      size: adSize,
       listener: BannerAdListener(
-        onAdLoaded: (ad) => setState(() => _isAdLoaded = true),
+        onAdLoaded: (ad) {
+          if (mounted) {
+            setState(() {
+              _bannerAds[category] = ad as BannerAd;
+              _adLoadState[category] = false;
+            });
+          }
+        },
         onAdFailedToLoad: (ad, err) {
           ad.dispose();
+          if (mounted) setState(() => _adLoadState[category] = false);
         },
       ),
     )..load();
@@ -214,7 +256,6 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Garante que o l10n está inicializado
     _l10n = AppLocalizations.of(context)!;
     final categories = _deviceData.entries.toList();
 
@@ -253,6 +294,7 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
                 final categoryItems = (category.value as Map<String, dynamic>)
                     .entries
                     .toList();
+                final bannerAd = _bannerAds[categoryTitle];
 
                 return Card(
                   elevation: 2.0,
@@ -260,54 +302,59 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
                     vertical: 6.0,
                     horizontal: 8.0,
                   ),
-                  clipBehavior: Clip.antiAlias,
-                  child: ExpansionTile(
-                    initiallyExpanded:
-                        categoryTitle == _l10n.softwareInfo ||
-                        categoryTitle == _l10n.displayInfo,
-                    title: Text(
-                      categoryTitle,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Colors.indigo,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                        child: Text(
+                          categoryTitle,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Colors.indigo,
+                          ),
+                        ),
                       ),
-                    ),
-                    children: categoryItems.map((item) {
-                      return ListTile(
-                        contentPadding: const EdgeInsets.symmetric(
-                          vertical: 2.0,
-                          horizontal: 24.0,
+                      ...categoryItems.map((item) {
+                        return ListTile(
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 0,
+                            horizontal: 16.0,
+                          ),
+                          title: Text(
+                            item.key,
+                            style: const TextStyle(fontWeight: FontWeight.w500),
+                          ),
+                          subtitle: Text(
+                            '${item.value}',
+                            style: TextStyle(color: Colors.grey[700]),
+                          ),
+                        );
+                      }).toList(),
+                      const SizedBox(height: 8),
+
+                      // BANNER NO FINAL DO CARD
+                      if (bannerAd != null)
+                        Container(
+                          alignment: Alignment.center,
+                          width: bannerAd.size.width.toDouble(),
+                          height: bannerAd.size.height.toDouble(),
+                          child: AdWidget(ad: bannerAd),
                         ),
-                        title: Text(
-                          item.key,
-                          style: const TextStyle(fontWeight: FontWeight.w500),
-                        ),
-                        subtitle: Text(
-                          '${item.value}',
-                          style: TextStyle(color: Colors.grey[700]),
-                        ),
-                      );
-                    }).toList(),
+                    ],
                   ),
                 );
               },
             ),
-      bottomNavigationBar: _isAdLoaded && _bannerAd != null
-          ? SafeArea(
-              child: SizedBox(
-                width: _bannerAd!.size.width.toDouble(),
-                height: _bannerAd!.size.height.toDouble(),
-                child: AdWidget(ad: _bannerAd!),
-              ),
-            )
-          : const SizedBox.shrink(),
     );
   }
 
   @override
   void dispose() {
-    _bannerAd?.dispose();
+    for (final ad in _bannerAds.values) {
+      ad?.dispose();
+    }
     for (final subscription in _streamSubscriptions) {
       subscription.cancel();
     }
@@ -315,7 +362,7 @@ class _DeviceInfoScreenState extends State<DeviceInfoScreen> {
   }
 }
 
-// Tela "Sobre" atualizada
+// TELA "SOBRE" SEM BANNER
 class AboutScreen extends StatefulWidget {
   const AboutScreen({super.key});
 
@@ -339,9 +386,7 @@ class _AboutScreenState extends State<AboutScreen> {
 
   Future<void> _initPackageInfo() async {
     final info = await PackageInfo.fromPlatform();
-    setState(() {
-      _packageInfo = info;
-    });
+    if (mounted) setState(() => _packageInfo = info);
   }
 
   @override
@@ -353,15 +398,19 @@ class _AboutScreenState extends State<AboutScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
         children: <Widget>[
           const SizedBox(height: 20),
-          // Imagem do desenvolvedor (placeholder)
           CircleAvatar(
             radius: 50,
-            // Certifique-se de que a imagem está em 'assets/profile.jpg'
-            backgroundImage: const AssetImage('assets/profile.jpg'),
             backgroundColor: Colors.indigo.shade100,
+            child: ClipOval(
+              child: Image.asset(
+                'assets/eu.jpg',
+                fit: BoxFit.cover,
+                width: 100,
+                height: 100,
+              ),
+            ),
           ),
           const SizedBox(height: 16),
-          // Nome do desenvolvedor
           Text(
             'Eder Gross Cichelero',
             style: Theme.of(context).textTheme.headlineSmall,
@@ -377,12 +426,10 @@ class _AboutScreenState extends State<AboutScreen> {
           const SizedBox(height: 24),
           const Divider(),
           const SizedBox(height: 16),
-          // Informações do App
           _buildInfoTile(l10n.appName, _packageInfo.appName),
           _buildInfoTile(l10n.version, _packageInfo.version),
           _buildInfoTile(l10n.buildNumber, _packageInfo.buildNumber),
           const SizedBox(height: 16),
-          // Lista de dependências
           Card(
             elevation: 1.0,
             child: ExpansionTile(
@@ -405,7 +452,6 @@ class _AboutScreenState extends State<AboutScreen> {
     );
   }
 
-  // Widget para exibir informações do App
   Widget _buildInfoTile(String title, String subtitle) {
     return ListTile(
       title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
@@ -413,7 +459,6 @@ class _AboutScreenState extends State<AboutScreen> {
     );
   }
 
-  // Widget para exibir as dependências
   Widget _buildDependencyTile(String name) {
     return ListTile(
       title: Text(name),

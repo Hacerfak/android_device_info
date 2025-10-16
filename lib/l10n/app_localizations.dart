@@ -100,7 +100,7 @@ abstract class AppLocalizations {
     Locale('pt'),
   ];
 
-  /// No description provided for @appTitle.
+  /// O título principal do aplicativo.
   ///
   /// In pt, this message translates to:
   /// **'Informações do Dispositivo'**
@@ -121,14 +121,8 @@ abstract class AppLocalizations {
   /// No description provided for @loading.
   ///
   /// In pt, this message translates to:
-  /// **'Carregando...'**
+  /// **'Carregando informações...'**
   String get loading;
-
-  /// No description provided for @errorFailedToGetInfo.
-  ///
-  /// In pt, this message translates to:
-  /// **'Falha ao obter informações do dispositivo.'**
-  String get errorFailedToGetInfo;
 
   /// No description provided for @platform.
   ///
@@ -136,10 +130,10 @@ abstract class AppLocalizations {
   /// **'Plataforma'**
   String get platform;
 
-  /// Text showing the platform is not implemented
+  /// No description provided for @platformNotImplemented.
   ///
   /// In pt, this message translates to:
-  /// **'{platformName} (não implementado)'**
+  /// **'Não implementado para {platformName}'**
   String platformNotImplemented(String platformName);
 
   /// No description provided for @error.
@@ -148,53 +142,11 @@ abstract class AppLocalizations {
   /// **'Erro'**
   String get error;
 
-  /// No description provided for @errorDetails.
+  /// No description provided for @errorFailedToGetInfo.
   ///
   /// In pt, this message translates to:
-  /// **'Detalhes'**
-  String get errorDetails;
-
-  /// No description provided for @sensorsRealTime.
-  ///
-  /// In pt, this message translates to:
-  /// **'Sensores (em tempo real)'**
-  String get sensorsRealTime;
-
-  /// No description provided for @waitingForData.
-  ///
-  /// In pt, this message translates to:
-  /// **'Aguardando dados...'**
-  String get waitingForData;
-
-  /// No description provided for @accelerometer.
-  ///
-  /// In pt, this message translates to:
-  /// **'Acelerômetro (x, y, z)'**
-  String get accelerometer;
-
-  /// No description provided for @userAccelerometer.
-  ///
-  /// In pt, this message translates to:
-  /// **'Acelerômetro do Usuário (x, y, z)'**
-  String get userAccelerometer;
-
-  /// No description provided for @gyroscope.
-  ///
-  /// In pt, this message translates to:
-  /// **'Giroscópio (x, y, z)'**
-  String get gyroscope;
-
-  /// No description provided for @magnetometer.
-  ///
-  /// In pt, this message translates to:
-  /// **'Magnetômetro (x, y, z)'**
-  String get magnetometer;
-
-  /// No description provided for @gravity.
-  ///
-  /// In pt, this message translates to:
-  /// **'Gravidade (x, y, z)'**
-  String get gravity;
+  /// **'Falha ao obter as informações do dispositivo.'**
+  String get errorFailedToGetInfo;
 
   /// No description provided for @softwareInfo.
   ///
@@ -340,6 +292,48 @@ abstract class AppLocalizations {
   /// **'Orientação'**
   String get orientation;
 
+  /// No description provided for @sensorsRealTime.
+  ///
+  /// In pt, this message translates to:
+  /// **'Sensores (em tempo real)'**
+  String get sensorsRealTime;
+
+  /// No description provided for @waitingForData.
+  ///
+  /// In pt, this message translates to:
+  /// **'Aguardando dados...'**
+  String get waitingForData;
+
+  /// No description provided for @accelerometer.
+  ///
+  /// In pt, this message translates to:
+  /// **'Acelerômetro (x, y, z)'**
+  String get accelerometer;
+
+  /// No description provided for @userAccelerometer.
+  ///
+  /// In pt, this message translates to:
+  /// **'Acelerômetro do Usuário (x, y, z)'**
+  String get userAccelerometer;
+
+  /// No description provided for @gyroscope.
+  ///
+  /// In pt, this message translates to:
+  /// **'Giroscópio (x, y, z)'**
+  String get gyroscope;
+
+  /// No description provided for @magnetometer.
+  ///
+  /// In pt, this message translates to:
+  /// **'Magnetômetro (x, y, z)'**
+  String get magnetometer;
+
+  /// Sensor de pressão atmosférica e sua unidade (hectopascais)
+  ///
+  /// In pt, this message translates to:
+  /// **'Barômetro (hPa)'**
+  String get barometer;
+
   /// No description provided for @appName.
   ///
   /// In pt, this message translates to:
@@ -357,12 +351,6 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Número da Build'**
   String get buildNumber;
-
-  /// No description provided for @packageName.
-  ///
-  /// In pt, this message translates to:
-  /// **'Nome do Pacote'**
-  String get packageName;
 
   /// No description provided for @developer.
   ///

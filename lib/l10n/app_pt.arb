@@ -1,30 +1,22 @@
 {
-    "@@locale": "pt",
     "appTitle": "Informações do Dispositivo",
+    "@appTitle": {
+        "description": "O título principal do aplicativo."
+    },
     "detailedInfo": "Informações Detalhadas",
     "about": "Sobre",
-    "loading": "Carregando...",
-    "errorFailedToGetInfo": "Falha ao obter informações do dispositivo.",
+    "loading": "Carregando informações...",
     "platform": "Plataforma",
-    "platformNotImplemented": "{platformName} (não implementado)",
+    "platformNotImplemented": "Não implementado para {platformName}",
     "@platformNotImplemented": {
-        "description": "Text showing the platform is not implemented",
         "placeholders": {
             "platformName": {
-                "type": "String",
-                "example": "iOS"
+                "type": "String"
             }
         }
     },
     "error": "Erro",
-    "errorDetails": "Detalhes",
-    "sensorsRealTime": "Sensores (em tempo real)",
-    "waitingForData": "Aguardando dados...",
-    "accelerometer": "Acelerômetro (x, y, z)",
-    "userAccelerometer": "Acelerômetro do Usuário (x, y, z)",
-    "gyroscope": "Giroscópio (x, y, z)",
-    "magnetometer": "Magnetômetro (x, y, z)",
-    "gravity": "Gravidade (x, y, z)",
+    "errorFailedToGetInfo": "Falha ao obter as informações do dispositivo.",
     "softwareInfo": "Informações do Software",
     "osVersion": "Versão do SO",
     "sdkApiLevel": "Nível da API do SDK",
@@ -49,10 +41,19 @@
     "physicalResolution": "Resolução (pixels físicos)",
     "textScaleFactor": "Fator de Escala de Texto",
     "orientation": "Orientação",
+    "sensorsRealTime": "Sensores (em tempo real)",
+    "waitingForData": "Aguardando dados...",
+    "accelerometer": "Acelerômetro (x, y, z)",
+    "userAccelerometer": "Acelerômetro do Usuário (x, y, z)",
+    "gyroscope": "Giroscópio (x, y, z)",
+    "magnetometer": "Magnetômetro (x, y, z)",
+    "barometer": "Barômetro (hPa)",
+    "@barometer": {
+        "description": "Sensor de pressão atmosférica e sua unidade (hectopascais)"
+    },
     "appName": "Nome do App",
     "version": "Versão",
     "buildNumber": "Número da Build",
-    "packageName": "Nome do Pacote",
     "developer": "Desenvolvedor",
     "dependencies": "Dependências"
 }

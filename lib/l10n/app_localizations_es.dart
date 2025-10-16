@@ -18,46 +18,22 @@ class AppLocalizationsEs extends AppLocalizations {
   String get about => 'Acerca de';
 
   @override
-  String get loading => 'Cargando...';
-
-  @override
-  String get errorFailedToGetInfo =>
-      'No se pudo obtener la información del dispositivo.';
+  String get loading => 'Cargando información...';
 
   @override
   String get platform => 'Plataforma';
 
   @override
   String platformNotImplemented(String platformName) {
-    return '$platformName (no implementado)';
+    return 'No implementado para $platformName';
   }
 
   @override
   String get error => 'Error';
 
   @override
-  String get errorDetails => 'Detalles';
-
-  @override
-  String get sensorsRealTime => 'Sensores (tiempo real)';
-
-  @override
-  String get waitingForData => 'Esperando datos...';
-
-  @override
-  String get accelerometer => 'Acelerómetro (x, y, z)';
-
-  @override
-  String get userAccelerometer => 'Acelerómetro de Usuario (x, y, z)';
-
-  @override
-  String get gyroscope => 'Giroscopio (x, y, z)';
-
-  @override
-  String get magnetometer => 'Magnetómetro (x, y, z)';
-
-  @override
-  String get gravity => 'Gravedad (x, y, z)';
+  String get errorFailedToGetInfo =>
+      'No se pudo obtener la información del dispositivo.';
 
   @override
   String get softwareInfo => 'Información de Software';
@@ -72,16 +48,16 @@ class AppLocalizationsEs extends AppLocalizations {
   String get baseOSVersion => 'Versión Base del SO';
 
   @override
-  String get osCodename => 'Nombre Clave de Versión';
+  String get osCodename => 'Nombre Clave del SO';
 
   @override
-  String get buildId => 'ID de Build';
+  String get buildId => 'ID de Compilación';
 
   @override
-  String get buildTags => 'Etiquetas de Build';
+  String get buildTags => 'Etiquetas de Compilación';
 
   @override
-  String get buildType => 'Tipo de Build';
+  String get buildType => 'Tipo de Compilación';
 
   @override
   String get hardwareInfo => 'Información de Hardware';
@@ -132,16 +108,34 @@ class AppLocalizationsEs extends AppLocalizations {
   String get orientation => 'Orientación';
 
   @override
+  String get sensorsRealTime => 'Sensores (en tiempo real)';
+
+  @override
+  String get waitingForData => 'Esperando datos...';
+
+  @override
+  String get accelerometer => 'Acelerómetro (x, y, z)';
+
+  @override
+  String get userAccelerometer => 'Acelerómetro de Usuario (x, y, z)';
+
+  @override
+  String get gyroscope => 'Giroscopio (x, y, z)';
+
+  @override
+  String get magnetometer => 'Magnetómetro (x, y, z)';
+
+  @override
+  String get barometer => 'Barómetro (hPa)';
+
+  @override
   String get appName => 'Nombre de la App';
 
   @override
   String get version => 'Versión';
 
   @override
-  String get buildNumber => 'Número de Build';
-
-  @override
-  String get packageName => 'Nombre del Paquete';
+  String get buildNumber => 'Número de Compilación';
 
   @override
   String get developer => 'Desarrollador';

@@ -18,46 +18,22 @@ class AppLocalizationsPt extends AppLocalizations {
   String get about => 'Sobre';
 
   @override
-  String get loading => 'Carregando...';
-
-  @override
-  String get errorFailedToGetInfo =>
-      'Falha ao obter informações do dispositivo.';
+  String get loading => 'Carregando informações...';
 
   @override
   String get platform => 'Plataforma';
 
   @override
   String platformNotImplemented(String platformName) {
-    return '$platformName (não implementado)';
+    return 'Não implementado para $platformName';
   }
 
   @override
   String get error => 'Erro';
 
   @override
-  String get errorDetails => 'Detalhes';
-
-  @override
-  String get sensorsRealTime => 'Sensores (em tempo real)';
-
-  @override
-  String get waitingForData => 'Aguardando dados...';
-
-  @override
-  String get accelerometer => 'Acelerômetro (x, y, z)';
-
-  @override
-  String get userAccelerometer => 'Acelerômetro do Usuário (x, y, z)';
-
-  @override
-  String get gyroscope => 'Giroscópio (x, y, z)';
-
-  @override
-  String get magnetometer => 'Magnetômetro (x, y, z)';
-
-  @override
-  String get gravity => 'Gravidade (x, y, z)';
+  String get errorFailedToGetInfo =>
+      'Falha ao obter as informações do dispositivo.';
 
   @override
   String get softwareInfo => 'Informações do Software';
@@ -132,6 +108,27 @@ class AppLocalizationsPt extends AppLocalizations {
   String get orientation => 'Orientação';
 
   @override
+  String get sensorsRealTime => 'Sensores (em tempo real)';
+
+  @override
+  String get waitingForData => 'Aguardando dados...';
+
+  @override
+  String get accelerometer => 'Acelerômetro (x, y, z)';
+
+  @override
+  String get userAccelerometer => 'Acelerômetro do Usuário (x, y, z)';
+
+  @override
+  String get gyroscope => 'Giroscópio (x, y, z)';
+
+  @override
+  String get magnetometer => 'Magnetômetro (x, y, z)';
+
+  @override
+  String get barometer => 'Barômetro (hPa)';
+
+  @override
   String get appName => 'Nome do App';
 
   @override
@@ -139,9 +136,6 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get buildNumber => 'Número da Build';
-
-  @override
-  String get packageName => 'Nome do Pacote';
 
   @override
   String get developer => 'Desenvolvedor';

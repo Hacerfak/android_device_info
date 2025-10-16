@@ -18,45 +18,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get about => 'About';
 
   @override
-  String get loading => 'Loading...';
-
-  @override
-  String get errorFailedToGetInfo => 'Failed to get device information.';
+  String get loading => 'Loading information...';
 
   @override
   String get platform => 'Platform';
 
   @override
   String platformNotImplemented(String platformName) {
-    return '$platformName (not implemented)';
+    return 'Not implemented for $platformName';
   }
 
   @override
   String get error => 'Error';
 
   @override
-  String get errorDetails => 'Details';
-
-  @override
-  String get sensorsRealTime => 'Sensors (real-time)';
-
-  @override
-  String get waitingForData => 'Waiting for data...';
-
-  @override
-  String get accelerometer => 'Accelerometer (x, y, z)';
-
-  @override
-  String get userAccelerometer => 'User Accelerometer (x, y, z)';
-
-  @override
-  String get gyroscope => 'Gyroscope (x, y, z)';
-
-  @override
-  String get magnetometer => 'Magnetometer (x, y, z)';
-
-  @override
-  String get gravity => 'Gravity (x, y, z)';
+  String get errorFailedToGetInfo => 'Failed to get device information.';
 
   @override
   String get softwareInfo => 'Software Information';
@@ -71,7 +47,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get baseOSVersion => 'Base OS Version';
 
   @override
-  String get osCodename => 'Version Codename';
+  String get osCodename => 'OS Codename';
 
   @override
   String get buildId => 'Build ID';
@@ -131,6 +107,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get orientation => 'Orientation';
 
   @override
+  String get sensorsRealTime => 'Sensors (real-time)';
+
+  @override
+  String get waitingForData => 'Waiting for data...';
+
+  @override
+  String get accelerometer => 'Accelerometer (x, y, z)';
+
+  @override
+  String get userAccelerometer => 'User Accelerometer (x, y, z)';
+
+  @override
+  String get gyroscope => 'Gyroscope (x, y, z)';
+
+  @override
+  String get magnetometer => 'Magnetometer (x, y, z)';
+
+  @override
+  String get barometer => 'Barometer (hPa)';
+
+  @override
   String get appName => 'App Name';
 
   @override
@@ -138,9 +135,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get buildNumber => 'Build Number';
-
-  @override
-  String get packageName => 'Package Name';
 
   @override
   String get developer => 'Developer';
